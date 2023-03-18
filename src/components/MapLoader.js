@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import '../css/Map.css';
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiYXJ5YW5naXJvdWQiLCJhIjoiY2xmY3FqbThpMDd1NzN6dDc2dXltaGd2aSJ9.wBILi9ev5Tk-sbkP0kQ95A';
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API_KEY;
  
 export default function MapLoader() {
     const mapContainer = useRef(null);
