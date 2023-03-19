@@ -1,6 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import LoadingButton from '@mui/lab/LoadingButton';
+import { grey } from '@mui/material/colors';
 
 import '../css/Map.css';
 
@@ -9,10 +11,13 @@ mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API_KEY;
 export default function MapLoader() {
     const mapContainer = useRef(null);
     const map = useRef(null);
+    const [loading, setLoading] = useState(false)
     const [lng, setLng] = useState(5);
     const [lat, setLat] = useState(42.35);
     const [zoom, setZoom] = useState(1.5);
     const navigate = useNavigate()
+    const location = useLocation();
+
  
 useEffect(() => {
     if (map.current) return; // initialize map only once
@@ -35,6 +40,7 @@ if (!map.current) return; // wait for map to initialize
 });
 
 const TakeScreenshot = async () =>{
+    setLoading(true);
     var img= await map.current.getCanvas().toDataURL();
     //console.log(img)
     navigate(`/cuboid`,{state: img})
@@ -46,7 +52,12 @@ return (
                 Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
             </div>
             <div className="bottom-right-bar">
-                <button onClick={()=>{TakeScreenshot()}}>Generate Cuboid</button>
+                <LoadingButton
+                    size="medium"
+                    onClick={()=>{TakeScreenshot()}}
+                    loading={loading}
+                    sx={{ color: grey[50] }}>
+                    Generate Cuboid</LoadingButton>
             </div>
             <div ref={mapContainer} className="map-container" />
         </div>

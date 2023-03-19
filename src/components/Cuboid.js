@@ -7,7 +7,12 @@ import {
   useHover,
 } from 'react-babylonjs'
 import { Vector3, Color3 } from '@babylonjs/core'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { IconButton } from '@mui/material';
+import { grey } from '@mui/material/colors';
+
+import '../css/Map.css';
 
 const DefaultScale = new Vector3(1, 1, 1)
 const BiggerScale = new Vector3(1.25, 1.25, 1.25)
@@ -60,10 +65,16 @@ const SpinningBox = (props) => {
 
 const Cuboid = () => {
   const location = useLocation();
+  const navigate = useNavigate()
   const data = location.state;
-  console.log(location)
+  
   return (
     <div>
+       <div className="top-left-bar">
+        <IconButton color="primary" aria-label="Back" onClick={()=>{navigate(`/`);}}>
+            <ArrowBackIcon  fontSize="large"  sx={{ color: grey[50] }} />
+        </IconButton>
+        </div>
       <Engine antialias adaptToDeviceRatio canvasId="babylonJS">
         <Scene>
           <arcRotateCamera
