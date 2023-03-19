@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import { useLocation, useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { grey } from '@mui/material/colors';
 
@@ -16,7 +16,6 @@ export default function MapLoader() {
     const [lat, setLat] = useState(42.35);
     const [zoom, setZoom] = useState(1.5);
     const navigate = useNavigate()
-    const location = useLocation();
 
  
 useEffect(() => {
